@@ -1,7 +1,10 @@
-## Put comments here that give an overall description of what your
-## functions do
+## Below functions are defined to show concept of lexical scoping.How we can take advantage of the scoping rules.
+## Computation of matrix Inverse is potentially time-consuming. 
+## Below functions are used to compute inverse matrix, save inverse in cache and read from cache if same inverse (if matrix content not changed) needed to compute repeatedly
+## Inverse get retreived from cache rather than recomputed.  of the scoping rules of the R language and how they can be manipulated to preserve state inside of an R object
 
-## Write a short comment describing this function
+## The makeCacheMatrix function create special matrix, set and get value of matrix
+## Set and Get Inverse of Matrix
 
 makeCacheMatrix <- function(x = matrix()) {
   m <- NULL
@@ -18,17 +21,19 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
+## The cacheSolve function computes inverse of the special "matrix" created with the above function. 
+## It first checks if the inverse has already been computed.
+## If yes, it gets the inverse from the cache. Otherwise, it computes inverse
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+
   m <- x$getInv()
   if(!is.null(m)) {
     message("getting cached data")
     return(m)
   }
   data <- x$get()
-  m <- solve(data, ...)
+  m <- solve(data, ...) ## Return a matrix that is the inverse of 'x'
   x$setInv(m)
   m
 }
